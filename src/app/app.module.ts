@@ -3,11 +3,16 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CurrencyExchangeModule } from './currency-exchange/currency-exchange.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  MatSidenavModule,
+  MatIconModule,
+  MatToolbarModule,
+  MatListModule
+} from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { MatSidenavModule, MatIconModule, MatToolbarModule, MatListModule} from '@angular/material';
-import { FlexLayoutModule} from '@angular/flex-layout';
+import { CurrencyModule } from './currency/currency.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,11 +20,14 @@ import { FlexLayoutModule} from '@angular/flex-layout';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    CurrencyExchangeModule,
+
     FlexLayoutModule,
 
-    MatSidenavModule, MatIconModule, MatToolbarModule,
-    MatListModule
+    MatSidenavModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatListModule,
+    CurrencyModule
   ],
   bootstrap: [AppComponent]
 })

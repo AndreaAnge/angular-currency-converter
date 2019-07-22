@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: 'currency-converter',
-    loadChildren: () => import('./currency-exchange/currency-exchange.module').then(mod => mod.CurrencyExchangeModule)
+    loadChildren: () => import('./currency/currency.module').then(mod => mod.CurrencyModule)
   },
   {
     path: 'about',

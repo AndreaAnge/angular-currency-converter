@@ -8,10 +8,4 @@ import { NavigationItem } from './shared/interfaces/navigation-item';
 })
 export class AppComponent {
   title = 'Currency Converter';
-  navigation: NavigationItem[] = [
-    {
-      displayName: 'Exchange Rates',
-      routerLink: '/currency'
-    }
-  ]
 }

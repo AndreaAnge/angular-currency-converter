@@ -21,7 +21,7 @@
         </button>
       </div>
       <mat-form-field appearance="outline">
-        <input type="text" placeholder="To" aria-label="To" matInput formControlName="toCurrency"
+        <input type="text" class="uppercase" placeholder="To" aria-label="To" matInput formControlName="toCurrency"
           [matAutocomplete]="toAutocomplete">
         <mat-autocomplete #toAutocomplete="matAutocomplete">
           <mat-option *ngFor="let toItem of filteredToCurrencies | async" [value]="toItem">
@@ -35,20 +35,7 @@
     </form>
   </mat-card-content>
 </mat-card>
-<mat-card class="converter-card" *ngIf="result">
-  <div fxLayout="row" fxLayoutAlign="center">
-    <h3>{{ amount }} {{ fromCurrency | uppercase }} = {{ result | number:'1.5-5' }} {{ toCurrency | uppercase }}</h3>
-  </div>
-
-  <div fxLayout="column" fxLayoutAlign="center center">
-    <p>
-      1 {{ fromCurrency | uppercase }}
-      =
-      {{ (+toRate / +fromRate) | number:'1.5-5' }} {{ toCurrency | uppercase }}
-    </p>
-    <p>
-      1 {{ toCurrency | uppercase }} = {{ (+fromRate / +toRate) | number:'1.5-5' }}
-      {{ fromCurrency | uppercase }}
-    </p>
-  </div>
-</mat-card>
+<app-conversion-details *ngIf="result"
+  [amount]="amount" [result]="result"
+  [fromCurrencyRate]="fromCurrencyRate"
+  [toCurrencyRate]="toCurrencyRate"></app-conversion-details>

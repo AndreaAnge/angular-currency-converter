@@ -17,19 +17,14 @@ import { FormNames } from '../../enums/form-names';
 export class CurrencyConverterComponent implements OnInit {
   currencyConverterForm: FormGroup;
 
-  exchangeRates: MappedCurrencyRate[];
-
   filteredFromCurrencies: Observable<string[]>;
   filteredToCurrencies: Observable<string[]>;
 
-  fromCurrency: string;
-  fromRate: number;
-
-  toCurrency: string;
-  toRate: number;
+  fromCurrencyRate: MappedCurrencyRate;
+  toCurrencyRate: MappedCurrencyRate;
 
   result: string;
-  amount = 1;
+  amount: number;
 
   isLoading = true;
 
@@ -49,17 +44,12 @@ export class CurrencyConverterComponent implements OnInit {
   }
 
   convert() {
-    const fromCurrencyRate = this.filterSelectedValue(
+    this.fromCurrencyRate = this.filterSelectedValue(
       this.currencyConverterForm.get(FormNames.FromCurrency).value
     );
-    this.fromCurrency = fromCurrencyRate.currency.toLowerCase();
-    this.fromRate = fromCurrencyRate.rate;
-
-    const toCurrencyRate = this.filterSelectedValue(
+    this.toCurrencyRate = this.filterSelectedValue(
       this.currencyConverterForm.get(FormNames.ToCurrency).value
     );
-    this.toCurrency = toCurrencyRate.currency.toLowerCase();
-    this.toRate = toCurrencyRate.rate;
 
     this.amount = Math.floor(this.currencyConverterForm.get(FormNames.Amount).value);
 
@@ -83,11 +73,9 @@ export class CurrencyConverterComponent implements OnInit {
     });
 
     this.currencyExchangeService.fromCurrencies = this.mapCurrencies();
-
     this.currencyExchangeService.toCurrencies = this.mapCurrencies();
 
     this.filteredFromCurrencies = this.getFromValueChanges(FormNames.FromCurrency);
-
     this.filteredToCurrencies = this.getToValueChanges(FormNames.ToCurrency);
 
     this.convert();
@@ -114,11 +102,14 @@ export class CurrencyConverterComponent implements OnInit {
     );
   }
 
+  onInputChange(e): void {
+  }
+
   private initForm() {
     return this.formBuilder.group({
-      amount: ['', Validators.required],
-      fromCurrency: ['', Validators.required],
-      toCurrency: ['', Validators.required]
+      amount: [1, Validators.required],
+      fromCurrency: [Currency.EUR, Validators.required],
+      toCurrency: [Currency.HRK, Validators.required]
     });
   }
 
@@ -134,6 +125,10 @@ export class CurrencyConverterComponent implements OnInit {
             this.currencyExchangeService.exchangeRates = this.mapExchangeRatesResponseData(
               exchangeRate
             );
+            this.currencyExchangeService.exchangeRates.push({
+              currency: Currency.EUR,
+              rate: 1
+            });
 
             this.currencyExchangeService.fromCurrencies = this.mapCurrencies();
             this.currencyExchangeService.toCurrencies = this.mapCurrencies();
@@ -169,6 +164,14 @@ export class CurrencyConverterComponent implements OnInit {
       .sort();
   }
 
+  private filterCurrencies(value: string, arrayToFilter: string[]): string[] {
+    const filterValueLowercase = value.toLowerCase();
+
+    return arrayToFilter.filter(option =>
+      option.toLowerCase().includes(filterValueLowercase)
+    );
+  }
+
   private filterSelectedValue(value: string): MappedCurrencyRate {
     return this.currencyExchangeService.exchangeRates.find(
       (item: MappedCurrencyRate) => {
@@ -178,14 +181,9 @@ export class CurrencyConverterComponent implements OnInit {
   }
 
   private calculateExchangeRate(): string {
-    return ((this.amount * this.toRate) / this.fromRate).toFixed(5);
-  }
+    const fromRate = this.fromCurrencyRate.rate;
+    const toRate = this.toCurrencyRate.rate;
 
-  private filterCurrencies(value: string, arrayToFilter: string[]): string[] {
-    const filterValue = value.toLowerCase();
-
-    return arrayToFilter.filter(option =>
-      option.toLowerCase().includes(filterValue)
-    );
+    return ((this.amount * toRate) / fromRate).toFixed(5);
   }
 }
