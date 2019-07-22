@@ -1,0 +1,54 @@
+<mat-card class="converter-card">
+  <mat-card-content>
+    <form [formGroup]="currencyConverterForm" fxLayout="row" fxLayoutAlign="space-evenly center" (ngSubmit)="convert()"
+      novalidate>
+      <mat-form-field appearance="outline">
+        <input matInput placeholder="Amount" formControlName="amount" type="number">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <input type="text" placeholder="From" aria-label="From" matInput formControlName="fromCurrency"
+          [matAutocomplete]="fromAutocomplete">
+        <mat-autocomplete #fromAutocomplete="matAutocomplete">
+          <mat-option *ngFor="let fromItem of filteredFromCurrencies | async" [value]="fromItem">
+            {{fromItem}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <div class="converter-btn">
+        <button mat-icon-button class="reverse-btn" color="accent" (click)="swapCurrencies()"
+          aria-label="Swap currencies">
+          <mat-icon>compare_arrows</mat-icon>
+        </button>
+      </div>
+      <mat-form-field appearance="outline">
+        <input type="text" placeholder="To" aria-label="To" matInput formControlName="toCurrency"
+          [matAutocomplete]="toAutocomplete">
+        <mat-autocomplete #toAutocomplete="matAutocomplete">
+          <mat-option *ngFor="let toItem of filteredToCurrencies | async" [value]="toItem">
+            {{toItem}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <div class="converter-btn">
+        <button mat-raised-button color="accent" (click)="convert()">Convert</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
+<mat-card class="converter-card" *ngIf="result">
+  <div fxLayout="row" fxLayoutAlign="center">
+    <h3>{{ amount }} {{ fromCurrency | uppercase }} = {{ result | number:'1.5-5' }} {{ toCurrency | uppercase }}</h3>
+  </div>
+
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <p>
+      1 {{ fromCurrency | uppercase }}
+      =
+      {{ (+toRate / +fromRate) | number:'1.5-5' }} {{ toCurrency | uppercase }}
+    </p>
+    <p>
+      1 {{ toCurrency | uppercase }} = {{ (+fromRate / +toRate) | number:'1.5-5' }}
+      {{ fromCurrency | uppercase }}
+    </p>
+  </div>
+</mat-card>
