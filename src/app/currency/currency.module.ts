@@ -16,6 +16,7 @@ import {
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ConversionDetailsComponent } from './components/conversion-details/conversion-details.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [CurrencyConverterComponent, ConversionDetailsComponent],
@@ -34,7 +35,8 @@ import { ConversionDetailsComponent } from './components/conversion-details/conv
     MatAutocompleteModule,
     MatIconModule,
 
-    FlexLayoutModule
+    FlexLayoutModule,
+    SharedModule
   ]
 })
 export class CurrencyModule {}

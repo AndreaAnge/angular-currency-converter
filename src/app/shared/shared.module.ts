@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { StorageService } from './services/storage.service';
 
 @NgModule({
-  declarations: [],
   imports: [
     CommonModule
   ],

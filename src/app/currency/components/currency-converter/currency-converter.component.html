@@ -3,7 +3,7 @@
     <form [formGroup]="currencyConverterForm" fxLayout="row" fxLayoutAlign="space-evenly center" (ngSubmit)="convert()"
       novalidate>
       <mat-form-field appearance="outline">
-        <input matInput placeholder="Amount" formControlName="amount" type="number">
+        <input matInput placeholder="Amount" id="amount" formControlName="amount" type="number">
       </mat-form-field>
       <mat-form-field appearance="outline">
         <input type="text" placeholder="From" aria-label="From" matInput formControlName="fromCurrency"
