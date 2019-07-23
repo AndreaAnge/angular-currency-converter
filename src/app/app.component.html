@@ -1,39 +1,19 @@
-<mat-sidenav-container>
-  <mat-sidenav #sidenav role="navigation">
-    <mat-nav-list>
-      <a mat-list-item routerLink="/currency-converter">
-        <span class="label">Currency Converter</span>
-      </a>
-      <a mat-list-item routerLink="/about">
-        <span class="label">About</span>
-      </a>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <div fxHide.gt-xs>
-        <button mat-icon-button>
-          <mat-icon>menu</mat-icon>
-        </button>
-      </div>
-      <div>
-        <a routerLink="/currency-converter">
-          Currency Converter
+<mat-toolbar color="primary">
+  <div fxFlex fxLayoutGap="25px">
+    <a routerLink="/currency-converter">
+      Currency Converter
+    </a>
+    <a class="exchange-link" routerLink="/exchange-rates">Browse currency exchange rates</a>
+  </div>
+  <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+    <ul fxLayout fxLayoutGap="20px" class="navigation-items">
+      <li>
+        <a routerLink="/about">
+          <span class="label">About</span>
         </a>
-      </div>
-      <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
-        <ul fxLayout fxLayoutGap="20px" class="navigation-items">
-          <li>
-            <a routerLink="/about">
-              <span class="label">About</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </mat-toolbar>
-    <main>
-    </main>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+      </li>
+    </ul>
+  </div>
+</mat-toolbar>
 
 <router-outlet></router-outlet>

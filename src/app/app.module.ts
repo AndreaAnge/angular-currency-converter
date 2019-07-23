@@ -11,8 +11,7 @@ import {
   MatListModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
-import { CurrencyModule } from './currency/currency.module';
+import { CurrencyConverterModule } from './currency-converter/currency-converter.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,7 +26,8 @@ import { CurrencyModule } from './currency/currency.module';
     MatIconModule,
     MatToolbarModule,
     MatListModule,
-    CurrencyModule
+
+    CurrencyConverterModule
   ],
   bootstrap: [AppComponent]
 })

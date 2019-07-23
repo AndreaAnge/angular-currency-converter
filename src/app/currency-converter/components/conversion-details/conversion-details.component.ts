@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange, SimpleChanges } from '@angular/core';
-import { MappedCurrencyRate } from '../../interfaces/currency-rate';
+import { MappedCurrencyRate } from 'src/app/shared/interfaces/currency-rate';
 
 @Component({
   selector: 'app-conversion-details',

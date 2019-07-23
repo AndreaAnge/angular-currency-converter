@@ -1,4 +1,6 @@
-mat-sidenav-container, mat-sidenav-content, mat-sidenav {
+mat-sidenav-container,
+mat-sidenav-content,
+mat-sidenav {
   height: 100%;
 }
 
@@ -38,4 +40,9 @@ a:active {
   line-height: 30px;
   margin: 0;
   width: 85%;
+}
+
+a.exchange-link {
+  font-size: 14px;
+  padding-bottom: 6px;
 }

@@ -4,6 +4,10 @@ import { CurrencyConverterComponent } from './components/currency-converter/curr
 
 const routes: Routes = [
   {
+    path: 'currency-converter/:from/:to',
+    component: CurrencyConverterComponent
+  },
+  {
     path: '',
     component: CurrencyConverterComponent
   }
@@ -13,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CurrencyRoutingModule { }
+export class CurrencyConverterRoutingModule { }

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CurrencyRoutingModule } from './currency-routing.module';
+import { CurrencyConverterRoutingModule } from './currency-converter-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CurrencyConverterComponent } from './components/currency-converter/currency-converter.component';
 import {
@@ -12,7 +12,8 @@ import {
   MatButtonModule,
   MatCardModule,
   MatAutocompleteModule,
-  MatIconModule
+  MatIconModule,
+  MatTableModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ConversionDetailsComponent } from './components/conversion-details/conversion-details.component';
@@ -22,7 +23,7 @@ import { SharedModule } from '../shared/shared.module';
   declarations: [CurrencyConverterComponent, ConversionDetailsComponent],
   imports: [
     CommonModule,
-    CurrencyRoutingModule,
+    CurrencyConverterRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
@@ -34,9 +35,10 @@ import { SharedModule } from '../shared/shared.module';
     MatCardModule,
     MatAutocompleteModule,
     MatIconModule,
+    MatTableModule,
 
     FlexLayoutModule,
     SharedModule
   ]
 })
-export class CurrencyModule {}
+export class CurrencyConverterModule {}

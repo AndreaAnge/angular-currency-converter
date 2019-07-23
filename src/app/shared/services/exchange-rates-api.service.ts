@@ -11,9 +11,9 @@ export class ExchangeRatesApiService {
 
   constructor(private readonly http: HttpClient) { }
 
-  getLatestExchangeRates(baseCurrency): Observable<ExchangeRates> {
+  getLatestExchangeRates(baseCurrency: string, quoteCurrency = ''): Observable<ExchangeRates> {
     return this.http.get<ExchangeRates>(
-      `${this.apiEndpoint}/latest?base=${baseCurrency}`
+      `${this.apiEndpoint}/latest?base=${baseCurrency}&symbols=${quoteCurrency}`
     );
   }
 }

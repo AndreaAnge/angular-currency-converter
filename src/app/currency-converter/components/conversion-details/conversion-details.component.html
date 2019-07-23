@@ -1,6 +1,6 @@
-<mat-card class="converter-card" *ngIf="result">
+<mat-card *ngIf="result">
   <div fxLayout="row" fxLayoutAlign="center">
-    <h3>{{ amount }} {{ fromCurrency | uppercase }} = {{ result | number }}
+    <h3>{{ amount }} {{ fromCurrency | uppercase }} = {{ result | number: '1.5-5' }}
       {{ toCurrency | uppercase }}
     </h3>
   </div>
@@ -8,10 +8,10 @@
     <p>
       1 {{ fromCurrency | uppercase }}
       =
-      {{ (+toRate / +fromRate) | number }} {{ toCurrency | uppercase }}
+      {{ (+toRate / +fromRate) | number: '1.5-5' }} {{ toCurrency | uppercase }}
     </p>
     <p>
-      1 {{ toCurrency | uppercase }} = {{ (+fromRate / +toRate) | number }}
+      1 {{ toCurrency | uppercase }} = {{ (+fromRate / +toRate) | number: '1.5-5' }}
       {{ fromCurrency | uppercase }}
     </p>
   </div>
