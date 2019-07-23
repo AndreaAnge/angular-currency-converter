@@ -6,7 +6,12 @@
   <h1>Currency Converter/Calculator</h1>
   <p>Used localStorage to limit number of requests to api endpoint.</p>
   <p>Base conversion currency is EUR (Euro)</p>
-
+  <h2>Prerequisites</h2>
+  <ul>
+    <li><a href="https://www.npmjs.com/">npm - Package Manager</a></li>
+    <li><a href="https://nodejs.org/en/">Node.js</a></li>
+    <li><a href="https://github.com/angular/angular-cli">Angular CLI</a></li>
+  </ul>
   <h2>Setup and installation</h2>
   <ol>
     <li>Clone the repository.</li>
@@ -27,4 +32,13 @@
       </ul>
     </li>
   </ul>
+  <h2>Usage</h2>
+  <p>On first load, application displays welcome message.</p>
+  <p>On successful load, application navigates user automatically to Exchange Rates page where user can select base
+    currency and filter quote currencies.</p>
+  <p>Clicking on quote currency navigates user to Currency Converter where user can enter desired amount to convert.
+    Currency select form fields are prepopulated but user can make its own selection of currency.</p>
+  <p>Clicking on Convert button Conversion Details section is displayed with resulting amount and exchange rates of selected
+    currencies.</p>
+  <p>Additionaly, user can swap currencies by clicking on Reverse icon button located between currency select form fields.</p>
 </article>
