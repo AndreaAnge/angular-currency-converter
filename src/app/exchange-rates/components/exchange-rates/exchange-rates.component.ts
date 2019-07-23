@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
@@ -7,6 +7,7 @@ import { MappedCurrencyRate } from 'src/app/shared/interfaces/currency-rate';
 import { CurrencyExchangeService } from 'src/app/shared/services/currency-exchange.service';
 import { ExchangeRatesApiService } from 'src/app/shared/services/exchange-rates-api.service';
 import { ExchangeRates } from 'src/app/shared/interfaces/exchange-rates';
+import { MatTableDataSource, MatSort } from '@angular/material';
 
 @Component({
   selector: 'app-exchange-rates',
@@ -14,12 +15,14 @@ import { ExchangeRates } from 'src/app/shared/interfaces/exchange-rates';
   styleUrls: ['./exchange-rates.component.scss']
 })
 export class ExchangeRatesComponent implements OnInit {
-  dataSource: MappedCurrencyRate[];
+  dataSource: MatTableDataSource<MappedCurrencyRate>;
   displayedColumns = ['currency', 'rate'];
 
   filteredBaseCurrencies: Observable<string[]>;
 
   baseCurrencyControl = new FormControl(Currency.EUR);
+
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(
     private currencyExchangeService: CurrencyExchangeService,
@@ -27,12 +30,12 @@ export class ExchangeRatesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getExchangeRates();
+    this.getExchangeRates(Currency.EUR);
 
     this.filteredBaseCurrencies = this.getBaseCurrencyValueChanges();
   }
 
-  getExchangeRates(baseCurrencyCode = Currency.EUR) {
+  getExchangeRates(baseCurrencyCode: string) {
     this.exchangeRatesApiService
       .getLatestExchangeRates(baseCurrencyCode)
       .subscribe(
@@ -41,7 +44,10 @@ export class ExchangeRatesComponent implements OnInit {
             exchangeRates
           );
 
-          this.dataSource = this.currencyExchangeService.exchangeRates;
+          this.dataSource = new MatTableDataSource(
+            this.currencyExchangeService.exchangeRates
+          );
+          this.dataSource.sort = this.sort;
 
           this.currencyExchangeService.fromCurrencies = this.mapCurrencies();
           this.currencyExchangeService.toCurrencies = this.mapCurrencies();
@@ -50,6 +56,10 @@ export class ExchangeRatesComponent implements OnInit {
           console.error(`Error: ${error.message}`);
         }
       );
+  }
+
+  applySearchFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   private getBaseCurrencyValueChanges(): Observable<string[]> {
@@ -75,7 +85,7 @@ export class ExchangeRatesComponent implements OnInit {
         };
       }
     );
-    mappedRates.push({currency: responseData.base, rate: 1});
+    mappedRates.push({ currency: responseData.base, rate: 1 });
 
     return mappedRates;
   }

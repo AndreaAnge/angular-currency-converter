@@ -13,7 +13,8 @@ import {
   MatCardModule,
   MatAutocompleteModule,
   MatIconModule,
-  MatTableModule
+  MatTableModule,
+  MatSortModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -34,6 +35,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatAutocompleteModule,
     MatIconModule,
     MatTableModule,
+    MatSortModule,
 
     FlexLayoutModule
   ]

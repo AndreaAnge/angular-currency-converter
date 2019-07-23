@@ -1,28 +1,33 @@
 <div class="currencies-container">
   <form>
-    <mat-form-field class="example-full-width">
-      <input type="text" placeholder="Select base currency" aria-label="Base currency" matInput
-        [formControl]="baseCurrencyControl" [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let baseCurrencyOption of filteredBaseCurrencies | async"
-          (onSelectionChange)="getExchangeRates(baseCurrencyControl.value)" [value]="baseCurrencyOption">
-          {{baseCurrencyOption}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <mat-form-field>
+        <input type="text" placeholder="Select base currency" aria-label="Base currency" matInput
+          [formControl]="baseCurrencyControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let baseCurrencyOption of filteredBaseCurrencies | async"
+            (onSelectionChange)="getExchangeRates(baseCurrencyControl.value)" [value]="baseCurrencyOption">
+            {{baseCurrencyOption}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput (keyup)="applySearchFilter($event.target.value)" placeholder="Search">
+      </mat-form-field>
+    </div>
   </form>
   <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource">
+    <table mat-table [dataSource]="dataSource" matSort>
 
       <ng-container matColumnDef="currency">
-        <th mat-header-cell *matHeaderCellDef> Quote Currency </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Quote Currency </th>
         <td mat-cell *matCellDef="let element">
           <a [routerLink]="['/currency-converter',baseCurrencyControl.value, element.currency]">{{element.currency}}</a>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="rate">
-        <th mat-header-cell *matHeaderCellDef> Rate </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Rate </th>
         <td mat-cell *matCellDef="let element"> {{element.rate | number: '1.5-5' }} </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>

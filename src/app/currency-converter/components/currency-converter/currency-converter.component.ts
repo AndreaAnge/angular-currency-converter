@@ -151,9 +151,7 @@ export class CurrencyConverterComponent implements OnInit {
         };
       }
     );
-
     mappedRates.push({currency: responseData.base, rate: 1});
-
     return mappedRates;
   }
 

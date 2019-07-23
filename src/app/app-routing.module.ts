@@ -16,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'currency-converter',
+    redirectTo: 'exchange-rates',
     pathMatch: 'full'
   }
 ];
