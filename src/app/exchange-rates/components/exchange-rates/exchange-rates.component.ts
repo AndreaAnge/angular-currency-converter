@@ -7,7 +7,11 @@ import { MappedCurrencyRate } from 'src/app/shared/interfaces/currency-rate';
 import { CurrencyExchangeService } from 'src/app/shared/services/currency-exchange.service';
 import { ExchangeRatesApiService } from 'src/app/shared/services/exchange-rates-api.service';
 import { ExchangeRates } from 'src/app/shared/interfaces/exchange-rates';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import {
+  MatTableDataSource,
+  MatSort,
+  MatOptionSelectionChange
+} from '@angular/material';
 
 @Component({
   selector: 'app-exchange-rates',
@@ -56,6 +60,21 @@ export class ExchangeRatesComponent implements OnInit {
           console.error(`Error: ${error.message}`);
         }
       );
+  }
+
+  selectCurrencyFromInput(event: any): void {
+    const inputCurrency = event.target.value.toUpperCase();
+
+    if (inputCurrency.length >= 2 && inputCurrency.length <= 3) {
+      const mappedCurrencies = this.mapCurrencies();
+
+      const matchedCurrency = mappedCurrencies
+        .find(currency => currency.includes(inputCurrency))
+        .toString();
+
+      this.baseCurrencyControl.setValue(matchedCurrency);
+      this.getExchangeRates(matchedCurrency);
+    }
   }
 
   applySearchFilter(filterValue: string) {

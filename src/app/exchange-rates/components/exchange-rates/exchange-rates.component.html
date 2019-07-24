@@ -3,10 +3,10 @@
     <div fxLayout="row" fxLayoutAlign="space-between center">
       <mat-form-field>
         <input type="text" placeholder="Select base currency" aria-label="Base currency" matInput
-          [formControl]="baseCurrencyControl" [matAutocomplete]="auto">
+          [formControl]="baseCurrencyControl" [matAutocomplete]="auto" (keydown.enter)="selectCurrencyFromInput($event)">
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let baseCurrencyOption of filteredBaseCurrencies | async"
-            (onSelectionChange)="getExchangeRates(baseCurrencyControl.value)" [value]="baseCurrencyOption">
+            (onSelectionChange)="getExchangeRates(baseCurrencyOption)" [value]="baseCurrencyOption">
             {{baseCurrencyOption}}
           </mat-option>
         </mat-autocomplete>

@@ -4,26 +4,26 @@
       <form [formGroup]="currencyConverterForm" fxLayout="row" fxLayoutAlign="space-evenly center"
         (ngSubmit)="convert()" novalidate>
         <mat-form-field appearance="outline">
-          <input matInput placeholder="Amount" id="amount" formControlName="amount" type="number">
+          <input matInput placeholder="Amount" id="amount" [formControlName]="formNames.Amount" type="number">
         </mat-form-field>
         <mat-form-field appearance="outline">
-          <input type="text" placeholder="From" aria-label="From" matInput formControlName="fromCurrency"
-            [matAutocomplete]="fromAutocomplete">
+          <input type="text" placeholder="From" name="fromCurrency" aria-label="From" matInput [formControlName]="formNames.FromCurrency"
+            (keydown.enter)="selectCurrencyFromInput($event, formNames.FromCurrency)" [matAutocomplete]="fromAutocomplete">
           <mat-autocomplete #fromAutocomplete="matAutocomplete">
-            <mat-option *ngFor="let fromItem of filteredFromCurrencies | async"  (onSelectionChange)="getExchangeRates(fromItem)" [value]="fromItem">
+            <mat-option *ngFor="let fromItem of filteredFromCurrencies | async" [value]="fromItem">
               {{fromItem}}
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
         <div class="converter-btn">
-          <button mat-icon-button class="reverse-btn" color="accent" (click)="swapCurrencies()"
+          <button type="button" mat-icon-button class="reverse-btn" color="accent" (click)="swapCurrencies()"
             aria-label="Swap currencies">
             <mat-icon>compare_arrows</mat-icon>
           </button>
         </div>
         <mat-form-field appearance="outline">
-          <input type="text" class="uppercase" placeholder="To" aria-label="To" matInput formControlName="toCurrency"
-            [matAutocomplete]="toAutocomplete">
+          <input type="text" class="uppercase" placeholder="To" aria-label="To" matInput [formControlName]="formNames.ToCurrency"
+            (keydown.enter)="selectCurrencyFromInput($event, formNames.ToCurrency)" [matAutocomplete]="toAutocomplete">
           <mat-autocomplete #toAutocomplete="matAutocomplete">
             <mat-option *ngFor="let toItem of filteredToCurrencies | async" [value]="toItem">
               {{toItem}}
@@ -31,7 +31,7 @@
           </mat-autocomplete>
         </mat-form-field>
         <div class="converter-btn">
-          <button mat-raised-button color="accent" (click)="convert()">Convert</button>
+          <button type="button" mat-raised-button color="accent" (click)="convert()">Convert</button>
         </div>
       </form>
     </mat-card-content>

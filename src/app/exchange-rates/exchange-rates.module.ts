@@ -16,6 +16,8 @@ import {
   MatTableModule,
   MatSortModule
 } from '@angular/material';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
@@ -36,6 +38,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatIconModule,
     MatTableModule,
     MatSortModule,
+    NgxMatSelectSearchModule,
 
     FlexLayoutModule
   ]

@@ -28,6 +28,7 @@ export class CurrencyConverterComponent implements OnInit {
   amount: number;
 
   isLoading = true;
+  formNames = FormNames;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -65,8 +66,8 @@ export class CurrencyConverterComponent implements OnInit {
     );
 
     this.result = this.calculateExchangeRate(
-      this.fromCurrencyRate.rate,
-      this.toCurrencyRate.rate
+      this.fromCurrencyRate && this.fromCurrencyRate.rate,
+      this.toCurrencyRate && this.toCurrencyRate.rate
     );
   }
 
@@ -88,9 +89,6 @@ export class CurrencyConverterComponent implements OnInit {
 
     const baseCurrencyCode = this.currencyConverterForm.get(
       FormNames.FromCurrency
-    ).value;
-    const quoteCurrencyCode = this.currencyConverterForm.get(
-      FormNames.ToCurrency
     ).value;
 
     this.getExchangeRates(baseCurrencyCode);
@@ -142,6 +140,20 @@ export class CurrencyConverterComponent implements OnInit {
           this.isLoading = false;
         }
       );
+  }
+
+  selectCurrencyFromInput(event: any, formName: string): void {
+    const inputCurrency = event.target.value.toUpperCase();
+
+    if (inputCurrency.length >= 2 && inputCurrency.length <= 3) {
+      const mappedCurrencies = this.mapCurrencies();
+
+      const matchedCurrency = mappedCurrencies
+        .find(currency => currency.includes(inputCurrency))
+        .toString();
+
+      this.currencyConverterForm.get(formName).setValue(matchedCurrency);
+    }
   }
 
   private mapExchangeRatesResponseData(
@@ -196,7 +208,7 @@ export class CurrencyConverterComponent implements OnInit {
     );
   }
 
-  private calculateExchangeRate(fromRate, toRate): string {
+  private calculateExchangeRate(fromRate: number, toRate: number): string {
     return ((this.amount * toRate) / fromRate).toFixed(5);
   }
 }
