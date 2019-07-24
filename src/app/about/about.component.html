@@ -5,7 +5,7 @@
 
   <h1>Currency Converter/Calculator</h1>
   <p>Used localStorage to limit number of requests to api endpoint.</p>
-  <p>Base conversion currency is EUR (Euro)</p>
+  <p>Default base conversion currency is EUR (Euro)</p>
   <h2>Prerequisites</h2>
   <ul>
     <li><a href="https://www.npmjs.com/">npm - Package Manager</a></li>
@@ -26,9 +26,10 @@
   <ul>
     <li><code>/app</code> - contains AppComponent along with the following subfolders:
       <ul>
-        <li><code>/currency</code> - CurrencyModule and related components, models, etc..</li>
-        <li><code>/about</code> - AboutModule, contains AboutComponent with instructions for setup and installation</li>
-        <li><code>/shared</code> - SharedModule, contains shared services and other shared elements</li>
+        <li><code>/currency-converter</code> - Currency Converter feature module and related components, models, etc..</li>
+        <li><code>/exchange-rates</code> - Exchange Rates feature module and related components, models, etc..</li>
+        <li><code>/about</code> - About feature Module, contains component/page with instructions for setup and installation</li>
+        <li><code>/shared</code> - Shared Module, contains shared services and other shared elements</li>
       </ul>
     </li>
   </ul>
@@ -38,7 +39,16 @@
     currency and filter quote currencies.</p>
   <p>Clicking on quote currency navigates user to Currency Converter where user can enter desired amount to convert.
     Currency select form fields are prepopulated but user can make its own selection of currency.</p>
-  <p>Clicking on Convert button Conversion Details section is displayed with resulting amount and exchange rates of selected
+  <p>Clicking on Convert button Conversion Details section is displayed with resulting amount and exchange rates of
+    selected
     currencies.</p>
-  <p>Additionaly, user can swap currencies by clicking on Reverse icon button located between currency select form fields.</p>
+  <p>Additionaly, user can swap currencies by clicking on Reverse icon button located between currency select form
+    fields.</p>
+  <h2>To Do</h2>
+  <ul>
+    <li>Unit test application components/services</li>
+    <li>Implement cache</li>
+    <li>Implement Validators and Error Handlers</li>
+    <li>Extract Util functions and reusable components</li>
+  </ul>
 </article>
