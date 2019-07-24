@@ -39,11 +39,12 @@ export class CurrencyConverterComponent implements OnInit {
   ngOnInit() {
     const baseCurrency =
       this.route.snapshot.paramMap.get('from') || Currency.EUR;
-    const quoteCurrency = this.route.snapshot.paramMap.get('to') || Currency.HRK;
+    const quoteCurrency =
+      this.route.snapshot.paramMap.get('to') || Currency.HRK;
 
     this.currencyConverterForm = this.initForm(baseCurrency, quoteCurrency);
 
-    this.getExchangeRates(baseCurrency, '');
+    this.getExchangeRates(baseCurrency);
 
     this.filteredFromCurrencies = this.getFromValueChanges(
       FormNames.FromCurrency
@@ -63,7 +64,10 @@ export class CurrencyConverterComponent implements OnInit {
       this.currencyConverterForm.get(FormNames.Amount).value
     );
 
-    this.result = this.calculateExchangeRate(this.fromCurrencyRate.rate, this.toCurrencyRate.rate);
+    this.result = this.calculateExchangeRate(
+      this.fromCurrencyRate.rate,
+      this.toCurrencyRate.rate
+    );
   }
 
   swapCurrencies() {
@@ -89,7 +93,7 @@ export class CurrencyConverterComponent implements OnInit {
       FormNames.ToCurrency
     ).value;
 
-    this.getExchangeRates(baseCurrencyCode, quoteCurrencyCode);
+    this.getExchangeRates(baseCurrencyCode);
 
     this.filteredFromCurrencies = this.getFromValueChanges(
       FormNames.FromCurrency
@@ -119,9 +123,9 @@ export class CurrencyConverterComponent implements OnInit {
     );
   }
 
-  getExchangeRates(baseCurrencyCode: string, quoteCurrencyCode: string) {
+  getExchangeRates(baseCurrencyCode: string) {
     this.exchangeRatesApiService
-      .getLatestExchangeRates(baseCurrencyCode, quoteCurrencyCode)
+      .getLatestExchangeRates(baseCurrencyCode)
       .subscribe(
         (exchangeRate: ExchangeRates): void => {
           this.currencyExchangeService.exchangeRates = this.mapExchangeRatesResponseData(
@@ -151,11 +155,17 @@ export class CurrencyConverterComponent implements OnInit {
         };
       }
     );
-    mappedRates.push({currency: responseData.base, rate: 1});
+
+    const baseRate = mappedRates.find(
+      cRate => cRate.currency === responseData.base
+    );
+    if (!baseRate) {
+      mappedRates.push({ currency: responseData.base, rate: 1 });
+    }
     return mappedRates;
   }
 
-  private initForm(fromCurrency, toCurrency) {
+  private initForm(fromCurrency: string, toCurrency: string) {
     return this.formBuilder.group({
       amount: [1, Validators.required],
       fromCurrency: [fromCurrency, Validators.required],
@@ -170,7 +180,6 @@ export class CurrencyConverterComponent implements OnInit {
       })
       .sort();
   }
-
   private filterCurrencies(value: string, arrayToFilter: string[]): string[] {
     const filterValueLowercase = value.toLowerCase();
 
